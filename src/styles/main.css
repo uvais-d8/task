@@ -1,9 +1,10 @@
 @import './tokens.css';
 @import './reset.css';
 
-body{
+body {
   margin: 0;
 }
+
 /* Full Bleed Hero Layout */
 .hero-section {
   position: relative;
@@ -37,7 +38,24 @@ body{
   object-position: center;
   z-index: 1;
 }
- 
+
+.hero-bg__tint {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at 75% 35%, 
+    rgba(255, 235, 170, 0.45) 0%, 
+    rgba(253, 144, 115, 0.2) 40%, 
+    transparent 75%
+  );
+  mix-blend-mode: overlay;
+  z-index: 3; /* Rendered on top of the lady image (z-index 2) to apply the yellow lighting effect */
+  pointer-events: none;
+}
+
 
 /* Megaphone Lady Cutout Positioning */
 .hero-lady-cutout {
@@ -46,14 +64,14 @@ body{
   left: 47.5%;
   transform: translateX(-45%);
   height: 100%;
-  max-height: 770px; 
+  max-height: 770px;
   z-index: 2;
   pointer-events: none;
-  }
+}
 
 /* Container */
 .hero-container {
-  width: 105%;
+  width: 100%;
   max-width: var(--hero-max-width);
   margin-left: auto;
   margin-right: auto;
@@ -74,7 +92,7 @@ body{
   align-items: center;
   justify-content: space-between;
 }
- 
+
 .logo {
   font-family: var(--font-family-heading);
   font-weight: 900;
@@ -82,18 +100,26 @@ body{
   letter-spacing: 0.04em;
   color: #FFFFFF;
   text-transform: uppercase;
-  width: 343px;
-  height: 70px;
   display: flex;
-  align-items: left;
-  margin-left: -70px;
+  align-items: center;
+}
+
+@media (min-width: 1025px) {
+  .logo {
+    margin-left: -70px;
+  }
 }
 
 .nav-right {
   display: flex;
   align-items: center;
-  margin-right: -70px;
   gap: 2.5rem;
+}
+
+@media (min-width: 1025px) {
+  .nav-right {
+    margin-right: -70px;
+  }
 }
 
 .nav-menu {
@@ -136,10 +162,19 @@ body{
   transition: all var(--transition-fast);
 }
 
+.grid-menu-btn svg {
+  transform: rotate(45deg);
+  transition: transform var(--transition-normal);
+}
+
 .grid-menu-btn:hover {
   background: rgba(255, 255, 255, 0.55);
   border-color: #FFFFFF;
   transform: translateY(-1px);
+}
+
+.grid-menu-btn:hover svg {
+  transform: rotate(135deg);
 }
 
 .mobile-toggle {
@@ -161,9 +196,9 @@ body{
 /* Hero Main Section Grid */
 .hero-main {
   display: grid;
-  grid-template-columns: 1fr 526px;
-  align-items: flex-end;
-  gap: 3rem;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 4rem;
   margin-top: auto;
   margin-bottom: auto;
   padding-top: 1.5rem;
@@ -173,81 +208,85 @@ body{
 .hero-content {
   display: flex;
   flex-direction: column;
-  gap: 1.75rem;
+  gap: 2rem;
 }
 
 .hero-headline {
   display: flex;
-  margin-top: 100px; 
+  margin-top: 40px; 
   flex-direction: column;
-  line-height: 0.86; 
+  line-height: 0.82; 
   text-transform: uppercase;
   font-family: var(--font-family-heading);
 } 
+
 .headline-fresh {
-  width: 407px;
-  font-size: clamp(3.8rem, 7.5vw, 6.5rem);
-  font-weight: 100 !important;
+  font-size: clamp(3rem, 8vw, 7.8rem);
+  font-weight: 200 !important;
   color: #FFFFFF;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
 }
+
 .headline-juicy {
-  width: 407px;
-  margin-top: 15px;
-  margin-left: -30px;
-  font-size: clamp(4.1rem, 6.7vw, 7.5rem);
+  margin-top: 5px;
+  font-size: clamp(4rem, 8vw, 7.8rem);
   font-weight: 500;
   color: #FFFFFF;
   letter-spacing: -0.01em;
 }
 
+@media (min-width: 1025px) {
+  .headline-juicy {
+    margin-left: -35px; /* Shift to left slightly on desktop */
+  }
+}
+
 .headline-bright {
-  width: 386px;
-  font-size: clamp(4.5rem, 7.5vw, 7.5rem);
-  font-weight: 2400;
+  font-size: clamp(4rem, 8vw, 7.8rem);
+  font-weight: 900;
   color: #FFFFFF;
   letter-spacing: -0.01em;
 }
 
 /* Figma Inspector: 491px x 155px Description Box */
 .hero-description {
-  font-size: 0.80rem;
-  line-height: 1.4;
+  font-size: 0.95rem;
+  line-height: 1.5;
   color: rgba(255, 255, 255, 0.85);
-  max-width: 468px;
+  max-width: 480px;
   font-weight: 400;
   letter-spacing: 0.02em;
 }
 
 /* Explicit Figma Directive: 526px width x 295px height Video Card */
 .hero-video-card {
-  width: 425px;
-  height: 333px;
-  border: 1.5px solid rgba(255, 255, 255, 0.59);
-  border-radius: 16px;
+  margin-right: -70px;
+  margin-top: 150px;
+  width: 350px;
+  height: 250px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
   padding: 8px;
-  background: rgba(241, 241, 241, 0.38);
+  background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(12px);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   transition: transform var(--transition-normal);
   align-self: center;
-  margin-left: 190px;
-  margin-top: 0px;
   box-sizing: border-box;
-  opacity: 1;
+  border-width: 1px;
+  border-color: #fffffff4
 }
 
 .hero-video-card:hover {
   transform: translateY(-4px);
-  border-color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 .video-card__inner {
   position: relative;
-  border-radius: 10px;
   overflow: hidden;
-  width: 385px;
-  height: 293px;
+  padding: 3px;
+  border-radius: 10px;
   width: 100%;
   height: 100%;
 }
@@ -255,9 +294,9 @@ body{
 .video-card__thumb {
   width: 100%;
   height: 100%;
+  border-radius: 10px;
   object-fit: cover;
   display: block;
-  opacity: 1;
 }
 
 /* Figma Inspector: 100px x 100px Play Button Circle */
@@ -266,12 +305,11 @@ body{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.38);
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.59);
+  background: rgba(255, 255, 255, 0.624);
+  backdrop-filter: blur(10px); 
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -281,11 +319,22 @@ body{
 }
 
 .video-card__play:hover {
-  background: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.45);
   transform: translate(-50%, -50%) scale(1.08);
+  border-color: #FFFFFF;
 }
 
 /* Hero Bottom Controls */
+.hero-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.853);
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 3;
+}
+
 .hero-controls {
   display: flex;
   align-items: center;
@@ -321,15 +370,15 @@ body{
 
 /* Figma Inspector: 296px x 69px Oval Slider Pill Control */
 .slider-pill {
-  width: 296px;
-  height: 69px;
+  margin-right: -70px;
+  width: 230px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid rgba(255, 255, 255, 0.59);
+  border: 1px solid rgba(255, 255, 255, 0.797);
   border-radius: 9999px;
-  padding: 0 24px;
-  background: rgba(241, 241, 241, 0.38);
+  padding: 0 24px; 
   backdrop-filter: blur(10px);
   box-sizing: border-box;
 }
@@ -353,24 +402,42 @@ body{
 .slider-pill__dots {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 16px;
 }
 
 .dot {
-  width: 8px;
-  height: 8px;
+  width: 15px;
+  height: 15px;
+  background: #FFFFFF;
   border-radius: 50%;
-  border: 1.5px solid #FFFFFF;
-  background: transparent;
-  transition: all var(--transition-normal);
   cursor: pointer;
+  position: relative;
+  transition: all var(--transition-normal);
+}
+
+.dot::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border: 1px solid #FFFFFF;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity var(--transition-normal), transform var(--transition-normal);
 }
 
 .dot.active {
-  width: 10px;
-  height: 10px;
-  background: #FFFFFF;
-  border-color: #FFFFFF;
+  width: 15px;
+  height: 15px;
+}
+
+.dot.active::after {
+  opacity: 1;
+  transform: scale(1);
 }
 
 /* SECTION 2: ABOUT / THINK. CREATE. PROMOTE. (EXACT FIGMA 200% ALIGNMENT) */
@@ -384,13 +451,13 @@ body{
 
 .watermark-text {
   position: absolute;
-  top: -1rem;
-  right: -3rem;
+  top: -6.9rem;
+  right: -0.9em;
   font-family: var(--font-family-heading);
-  font-weight: 900;
-  font-size: clamp(10rem, 22vw, 25rem);
-  color: rgba(240, 240, 243, 0.75);
-  letter-spacing: 0.05em;
+  font-weight: 800;
+  font-size: clamp(10rem, 16vw, 25rem);
+  color: rgba(240, 240, 243, 0.33);
+  letter-spacing: -0.01em;
   user-select: none;
   pointer-events: none;
   z-index: 1;
@@ -409,7 +476,7 @@ body{
 .about-grid {
   display: grid;
   grid-template-columns: 380px 1fr;
-  gap: 4.5rem; 
+  gap: 4.5rem;
   align-items: flex-start;
   position: relative;
   z-index: 2;
@@ -435,8 +502,8 @@ body{
   width: 100%;
   margin-left: 50px;
   max-width: 379px;
-  height: 468px; 
-  overflow: hidden; 
+  height: 468px;
+  overflow: hidden;
 }
 
 .about-img {
@@ -453,7 +520,8 @@ body{
   flex-direction: column;
   align-items: flex-start;
   gap: 2.25rem;
-  padding-top: 7rem; /* Align top of paragraph text with image height */
+  padding-top: 7rem;
+  /* Align top of paragraph text with image height */
 }
 
 .about-text {
@@ -492,63 +560,69 @@ body{
 /* Bottom Metrics / Statistics Counter Bar */
 .stats-wrapper {
   width: 100%;
-  background: #fafafa;
-  border-top: 1px solid #f1f5f9;
-  border-bottom: 1px solid #f1f5f9;
+  background: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
   position: relative;
-  z-index: 2;
+  height: 130px;
+  z-index: 2; 
+  margin-top: 4rem;
 }
 
 .stats-grid {
   display: grid;
-  margin-top: -90px;
+  height: 130px;
   grid-template-columns: repeat(4, 1fr);
   align-items: center;
-  width: 90%;
-  margin-left: 100px;
+  width: 100%;
 }
 
 .stat-card {
   display: flex;
+  height: 130px;
   align-items: center;
   gap: 1.25rem;
-  padding: 2.25rem 1.5rem;
+  padding: 1rem 1.5rem; /* Decreased size */
   border-right: 1px solid #e2e8f0;
+  justify-content: center;
 }
 
-.stat-card:last-child {
-  border-right: none;
+.stat-card:first-child {
+  border-left: 1px solid #e2e8f0;
 }
 
 .stat-icon {
-  width: 58px;
-  height: 58px;
-  border-radius: 12px;
+  width: 50px; /* Decreased size */
+  height: 50px; /* Decreased size */
+  border-radius: 10px;
   background: #e2e8f0;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  color: #5b6e8c;
 }
 
 .stat-info {
   display: flex;
   flex-direction: column;
-  gap: 0.1rem;
+  gap: 0.15rem;
 }
 
 .stat-label {
-  font-size: 0.85rem;
+  font-size: 0.8rem; /* Decreased size */
   font-weight: 500;
   color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .stat-number {
   font-family: var(--font-family-base);
   font-weight: 800;
-  font-size: 1.95rem;
+  font-size: 1.85rem; /* Decreased size */
   color: #0f172a;
-  line-height: 1.1;
+  line-height: 1;
 }
 
 /* SECTION 3: WHAT WE DO EXPERTS SLIDER (FORCE HORIZONTAL FLEX CAROUSEL) */
@@ -645,11 +719,11 @@ body{
   background-color: #1e293b;
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-              left 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-              width 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-              height 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-              opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-              border-radius 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    left 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    width 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    height 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    border-radius 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .service-card.no-transition {
@@ -741,13 +815,11 @@ body{
   left: 0;
   width: 100%;
   height: 50%;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.15) 20%,
-    rgba(0, 0, 0, 0.45) 60%,
-    rgba(0, 0, 0, 0.75) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.15) 20%,
+      rgba(0, 0, 0, 0.45) 60%,
+      rgba(0, 0, 0, 0.75) 100%);
   backdrop-filter: blur(24px) saturate(160%) brightness(0.92);
   -webkit-backdrop-filter: blur(24px) saturate(160%) brightness(0.92);
   -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 18%, rgba(0, 0, 0, 1) 38%);
@@ -991,7 +1063,8 @@ body{
 }
 
 .collage-col--col2 {
-  padding-top: 72px; /* 62px top placeholder + 10px gap */
+  padding-top: 72px;
+  /* 62px top placeholder + 10px gap */
 }
 
 .collage-card {
@@ -1018,26 +1091,55 @@ body{
 }
 
 /* Precise card heights per column & row matching reference image */
-.card-c1-r2 { height: 110px; }
-.card-c1-r3 { height: 105px; }
+.card-c1-r2 {
+  height: 110px;
+}
 
-.card-c2-r2 { height: 115px; }
-.card-c2-r3 { height: 110px; }
+.card-c1-r3 {
+  height: 105px;
+}
 
-.card-c3-r2 { height: 108px; }
-.card-c4-r2 { height: 110px; }
-.card-c5-r2 { height: 115px; }
-.card-c6-r2 { height: 108px; }
+.card-c2-r2 {
+  height: 115px;
+}
+
+.card-c2-r3 {
+  height: 110px;
+}
+
+.card-c3-r2 {
+  height: 108px;
+}
+
+.card-c4-r2 {
+  height: 110px;
+}
+
+.card-c5-r2 {
+  height: 115px;
+}
+
+.card-c6-r2 {
+  height: 108px;
+}
 
 .card-c7-r2 {
   height: 115px;
   margin-top: 24px;
 }
 
-.card-c8-r2 { height: 110px; }
-.card-c8-r3 { height: 118px; }
+.card-c8-r2 {
+  height: 110px;
+}
 
-.card-c9-r2 { height: 108px; }
+.card-c8-r3 {
+  height: 118px;
+}
+
+.card-c9-r2 {
+  height: 108px;
+}
+
 .card-c9-r3 {
   height: 118px;
   background: #d8dce2 !important;
@@ -1200,7 +1302,7 @@ body{
 .contact-form-card {
   background: #ffffff;
   border-radius: 15px;
-  padding: 3.5rem 3.5rem; 
+  padding: 3.5rem 3.5rem;
   width: 100%;
   max-width: 780px;
   margin-left: auto;
@@ -1377,8 +1479,8 @@ body{
 
 .footer-divider {
   width: 100%;
-  height: 0.25px;
-  background: rgba(255, 255, 255, 0.337);
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
   margin-top: 2.5rem;
   margin-bottom: 3.5rem;
 }
@@ -1394,6 +1496,7 @@ body{
   font-size: 1.85rem;
   margin-bottom: 1.25rem;
   display: inline-block;
+  margin-left: 0px; /* Optical alignment with the body text below */
 }
 
 .footer-brand-text {
@@ -1405,7 +1508,7 @@ body{
 
 .footer-col-title {
   font-family: var(--font-family-base);
-  font-weight: 700;  
+  font-weight: 700;
   font-size: 0.85rem;
   letter-spacing: 0.1em;
   color: #ffffff;
@@ -1521,9 +1624,9 @@ body{
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
-  
+
   .hero-video-card {
-    max-width: 526px;
+    max-width: 506px;
     width: 100%;
     height: auto;
     margin-left: 0;
@@ -1576,7 +1679,7 @@ body{
   .why-card--coral {
     transform: none;
   }
-  
+
   .why-card--coral:hover {
     transform: translateY(-6px);
   }
@@ -1630,7 +1733,7 @@ body{
   .header .nav-menu {
     position: fixed;
     top: 0;
-    left: 0;
+    left: 0; 
     width: 100%;
     height: 100vh;
     background: rgba(15, 23, 42, 0.95);
